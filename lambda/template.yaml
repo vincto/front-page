@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Contact Me - Publish emssage to an SNS channel to send email 
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Parameters:
+  ContactMeEmail:
+    Type: String
+
+Resources:
+  ContactMeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: contact-me/
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt ContactMeSNSTopic.TopicName
+      Environment:
+        Variables:
+            SNS_TOPIC: !Ref ContactMeSNSTopic
+      Events:
+        ContactMe:
+          Type: Api
+          Properties:
+            Path: /contactme
+            Method: post
+
+  ContactMeSNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+          Subscription:
+            - Endpoint: !Ref ContactMeEmail
+              Protocol: email
+          TopicName: "VinctoContactMe"
+
+Outputs:
+  ContactMeApi:
+    Description: "API Gateway endpoint URL for Prod stage for Contact Me Function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/contactme/"
+  ContactMeFunction:
+    Description: "Contact Me Lambda Function ARN"
+    Value: !GetAtt ContactMeFunction.Arn
+  ContactMeFunctionIamRole:
+    Description: "Implicit IAM Role created for Contact Me function"
+    Value: !GetAtt ContactMeFunctionRole.Arn

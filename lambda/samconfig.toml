@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "vincto-contact-me"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-9i0fq0xl6y0p"
+s3_prefix = "vincto-contact-me"
+region = "eu-west-3"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+
