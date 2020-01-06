@@ -10,8 +10,23 @@ Globals:
 Parameters:
   ContactMeEmail:
     Type: String
+  ContactMeTopicName:
+    Type: String
 
 Resources:
+  OptionsContactMeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: contact-me/
+      Handler: app.optionsLambdaHandler
+      Runtime: nodejs12.x
+      Events:
+        ContactMe:
+          Type: Api
+          Properties:
+            Path: /contactme
+            Method: options
+
   ContactMeFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -37,7 +52,7 @@ Resources:
           Subscription:
             - Endpoint: !Ref ContactMeEmail
               Protocol: email
-          TopicName: "VinctoContactMe"
+          TopicName: !Ref ContactMeTopicName
 
 Outputs:
   ContactMeApi:

@@ -1,4 +1,4 @@
 {
-  "body": "{\"name\": \"Vincent\",\"email\": \"vincent@vincto.fr\",\"phone\": \"(+33)659520361\",\"message\": \"hello world\"}",
+  "body": "{\"name\": \"Vincent\",\"email\": \"hello@world.com\",\"phone\": \"0123456789\",\"message\": \"hello world\"}",
   "httpMethod": "POST"
 }

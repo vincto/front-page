@@ -2,6 +2,35 @@ const AWS = require('aws-sdk');
 const SNS = new AWS.SNS({ apiVersion: '2010-03-31' });
 const SNS_TOPIC = process.env.SNS_TOPIC;
 
+
+/**
+ *
+ * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+ * @param {Object} event - API Gateway Lambda Proxy Input Format
+ *
+ * Context doc: https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html 
+ * @param {Object} context
+ *
+ * Callback
+ * @param {Object} callback
+ *
+ * Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+ * @returns {Object} object - API Gateway Lambda Proxy Output Format
+ * 
+ */
+exports.optionsLambdaHandler = (event, context, callback) => {
+
+    callback(null, {
+        statusCode: '200',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type'
+        },
+    });
+    context.succeed(event);
+};
+
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format

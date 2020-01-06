@@ -17,7 +17,7 @@ This is Vincto company website.
 cd lambda
 npm i
 sam build
-sam deploy --guide
+sam deploy --guide --parameter-overrides ContactMeEmail="<Your_email>" ContactMeTopicName="<Your_topic>"
 
 #Copy ContactMeApi Url OutputValue
 
