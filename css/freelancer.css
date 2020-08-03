@@ -9571,6 +9571,13 @@ a.text-dark:hover, a.text-dark:focus {
   font-style: italic;
 }
 
+.contact-link {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: initial;
+}
+
 .divider-custom {
   margin: 1.25rem 0 1.5rem;
   width: 100%;
